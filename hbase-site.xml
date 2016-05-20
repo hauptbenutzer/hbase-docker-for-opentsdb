@@ -7,4 +7,8 @@
     <name>hbase.zookeeper.property.dataDir</name>
     <value>/home/testuser/zookeeper</value>
   </property>
+  <property>
+    <name>hfile.index.block.max.size</name>
+    <value>1048576</value>
+  </property>
 </configuration>

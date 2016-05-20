@@ -1,7 +1,7 @@
 # Start with latest CentOS image
 FROM centos
 
-MAINTAINER Adam Thomson adaminspace@gmail.com
+MAINTAINER Moritz Flucht m.flucht@gmail.com
 
 # Switch to root user
 USER root
@@ -20,17 +20,22 @@ RUN yum install -y java-1.7.0-openjdk
 
 ## Install hbase from apache
 WORKDIR /usr/local/hbase
-RUN curl -SsfLO "http://apache.mirror.anlx.net/hbase/stable/hbase-1.1.2-bin.tar.gz"
-RUN tar -xvzf /usr/local/hbase/hbase-1.1.2-bin.tar.gz
+RUN curl -SsfLO "https://www.apache.org/dist/hbase/stable/hbase-1.1.5-bin.tar.gz"
+RUN tar -xvzf /usr/local/hbase/hbase-1.1.5-bin.tar.gz
 
 # Set JAVA_HOME (used by HBase)
 ENV JAVA_HOME /usr/lib/jvm/jre-1.7.0-openjdk
 
 # Add hbase to path
-ENV PATH /usr/local/hbase/hbase-1.1.2/bin:$PATH
+ENV PATH /usr/local/hbase/hbase-1.1.5/bin:$PATH
 
 # Insert config file from local
-ADD hbase-site.xml /usr/local/hbase/hbase-1.1.2/conf/hbase-site.xml
+ADD hbase-site.xml /usr/local/hbase/hbase-1.1.5/conf/hbase-site.xml
+
+# Run opentsdb provisioning
+WORKDIR /usr/local/cmls
+ADD provisioning.sh /usr/local/cmls/provisioning.sh
+RUN /usr/local/cmls/provisioning.sh
 
 # EXPOSE PORTS
 # zookeeper
@@ -53,5 +58,3 @@ EXPOSE 8080
 
 # Start HBase
 CMD hbase master start
-
-

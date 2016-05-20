@@ -1,13 +1,13 @@
-# hbase-docker
-Simple Docker build for hbase.
-CentOS, HBase v1.1.2
+# hbase-docker-for-opentsdb
+Simple Docker build for HBase with OpenTSDB in mind.
+CentOS, HBase v1.1.7
 
 ##Pull Image
 `docker pull adaminspace/hbase`
 
 ##Run Container (exposing rest port)
 
-Run: `docker run -d -p 8080:8080 --name myhbase adaminspace/hbase`
+Run: `docker run -d -p 8080:8080 --name myhbase hauptbenutzer/hbase-for-otsdb`
 
 Check logs (ctrl+C to exit): `docker logs -f myhbase`
 
